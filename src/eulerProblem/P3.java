@@ -2,7 +2,10 @@ package eulerProblem;
 
 public class P3 {
 //	private static long query = 21L;
-	private static long query = 13195L;
+//	private static long query = 13195L;
+//	private static long query = 6008514L; 
+
+	private static long query = 6008514521L;
 //	private static long query = 600851475143L;
 	private static long halfQuery = query / 2L;
 
@@ -11,27 +14,19 @@ public class P3 {
 		System.out.println("result:");
 		long start = System.currentTimeMillis();
 
-		long [] factors = new long[10000];
+		long largestFactorPrime = 1;
 
-		int size = 0;
-		long factor = query;		
-		for (long i = 1L; i < factor; i++) {
-			factor = getFactor(i);
-			if (factor != 0L) {
-				factors[size++] = i;
+		int size = 0;		
+		for (long i = 1L; i < halfQuery; i++) {
+			if (query % i == 0L) {
+				if (isPrime(i)) { 
+					largestFactorPrime = i;
+				}
 			}		
 		}
 
-System.out.println("ms: " + (System.currentTimeMillis() - start));
-		long largestFactorPrime = 1;
-		for (int i = 0; i < size; i++) {
-			if (isPrime(factors[i])) { 
-				if (factors[i] > largestFactorPrime)
-					largestFactorPrime = factors[i];
-			}
-		}
-
 		System.out.println(largestFactorPrime);
+System.out.println("ms: " + (System.currentTimeMillis() - start));
 		
 	}
 	
@@ -55,18 +50,5 @@ System.out.println("ms: " + (System.currentTimeMillis() - start));
 		return isPrime;
 	}
 
-	private static long getFactor(long x) {
-		System.out.println("factor candidate:" + x);
-		if (x == 1L)
-			return query;
-		
-		for (long i = halfQuery; i >= 2L; i--) {
-			if (i * x == query) {
-				System.out.println("factor:" + x + " times: " + i);
-				return i;
-			}
-		}
-		return 0L;
-	}
 }
 
